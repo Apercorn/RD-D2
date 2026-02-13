@@ -51,20 +51,20 @@ class CompetitionTeleOp : OpMode() {
   }
 
   override fun loop() {
-    val drive = -gamepad2.left_stick_y.toDouble()
-    val turn = gamepad2.right_stick_x.toDouble()
+    val drive = -gamepad1.left_stick_y.toDouble()
+    val turn = gamepad1.right_stick_x.toDouble()
 
     val leftPower = drive + turn
     val rightPower = drive - turn
 
     // Feed the artifact into the robot
-    if (gamepad2.rightTriggerWasPressed()) {
+    if (gamepad1.rightTriggerWasPressed()) {
       intakeActive = !intakeActive
       intakeDirection = DcMotorSimple.Direction.FORWARD
     }
 
     // Run the intake backwards
-    if (gamepad2.leftTriggerWasPressed()) {
+    if (gamepad1.leftTriggerWasPressed()) {
       intakeActive = !intakeActive
       intakeDirection = DcMotorSimple.Direction.REVERSE
     }
@@ -72,14 +72,14 @@ class CompetitionTeleOp : OpMode() {
     // Outtake the artifact
     // Oneshot Mode: Accelerates the motor to the desired RPM, outtakes the artifact then powers off
     // the flywheel
-    if (gamepad2.aWasPressed()) {
+    if (gamepad1.aWasPressed()) {
       outtakeActive = true
       flywheelTimer = runtime + 7.0
     }
 
     // Outtake the artifact
     // Toggle Mode: Toggles on and off the flywheel motor
-    if (gamepad2.bWasPressed()) {
+    if (gamepad1.bWasPressed()) {
       outtakeActive = !outtakeActive
     }
 
