@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7'
     implementation 'com.acmerobotics.roadrunner:core:0.5.6'
 
+    // Panels includes all plugins by default
     implementation 'com.bylazar:panels:1.0.5'
     implementation 'com.acmerobotics.dashboard:dashboard:0.4.15'
 }
