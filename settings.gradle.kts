@@ -12,11 +12,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
-        maven { url 'https://maven.brott.dev' }
-        maven { url 'https://mymaven.bylazar.com/releases' }
+        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://maven.brott.dev") }
+        maven { url = uri("https://mymaven.bylazar.com/releases") }
     }
 }
 
-include ':FtcRobotController'
-include ':TeamCode'
+include(":FtcRobotController")
+include(":TeamCode")
