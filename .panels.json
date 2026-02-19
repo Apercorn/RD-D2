@@ -1,0 +1,72 @@
+{
+	"name": "FTC",
+	"navlets": [
+		{ "navletID": "Battery", "pluginID": "com.bylazar.battery" },
+		{ "navletID": "Ping", "pluginID": "com.bylazar.pinger" },
+		{ "pluginID": "com.bylazar.themes", "navletID": "Colors Preview" },
+		{ "pluginID": "", "navletID": "" }
+	],
+	"widgets": [
+		{
+			"x": 0,
+			"y": 0,
+			"w": 5,
+			"h": 5,
+			"widgets": [
+				{
+					"pluginID": "com.bylazar.opmodecontrol",
+					"widgetID": "OpModes Control"
+				},
+				{ "pluginID": "com.bylazar.opmodecontrol", "widgetID": "OpModes Timer" }
+			]
+		},
+		{
+			"x": 0,
+			"y": 5,
+			"w": 5,
+			"h": 7,
+			"widgets": [
+				{ "pluginID": "com.bylazar.gamepad", "widgetID": "First Gamepad" },
+				{ "pluginID": "com.bylazar.capture", "widgetID": "Capture" }
+			]
+		},
+		{
+			"x": 5,
+			"y": 0,
+			"w": 6,
+			"h": 12,
+			"widgets": [
+				{ "pluginID": "com.bylazar.field", "widgetID": "Field" },
+				{ "pluginID": "com.bylazar.graph", "widgetID": "Graph" },
+				{ "pluginID": "com.bylazar.limelightproxy", "widgetID": "CameraStream" }
+			]
+		},
+		{
+			"x": 11,
+			"y": 7,
+			"w": 5,
+			"h": 5,
+			"widgets": [
+				{ "pluginID": "com.bylazar.camerastream", "widgetID": "Camera Stream" },
+				{ "pluginID": "com.bylazar.telemetry", "widgetID": "Telemetry" }
+			]
+		},
+		{
+			"x": 11,
+			"y": 0,
+			"w": 5,
+			"h": 7,
+			"widgets": [
+				{ "pluginID": "com.bylazar.telemetry", "widgetID": "Telemetry" },
+				{
+					"pluginID": "com.bylazar.configurables",
+					"widgetID": "Configurables"
+				},
+				{
+					"pluginID": "com.bylazar.configurables",
+					"widgetID": "ChangedConfigurables"
+				}
+			]
+		}
+	]
+}

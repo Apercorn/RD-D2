@@ -1,18 +1,19 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
+import com.bylazar.configurables.annotations.Configurable
+import com.bylazar.telemetry.JoinedTelemetry
+import com.bylazar.telemetry.PanelsTelemetry
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
-import com.qualcomm.robotcore.hardware.Servo
-import com.qualcomm.robotcore.hardware.DcMotor
-import com.qualcomm.robotcore.hardware.DcMotorEx
-import org.firstinspires.ftc.teamcode.drive.DriveConstants
+import org.firstinspires.ftc.teamcode.core.Robot
+import org.firstinspires.ftc.teamcode.drive.SampleTankDrive
 
 /*
  * Competition Autonomous OpMode
  *
- * This is a starter template. Build your trajectories based on your
- * game-specific strategy once DriveConstants are tuned.
+ * Uses the shared Robot class for hardware + subsystems so that
+ * hardware init is never duplicated between TeleOp and Auto.
  *
  * Coordinate system (field-centric):
  *   +X = toward the audience (forward from red alliance wall)
@@ -28,35 +29,17 @@ import org.firstinspires.ftc.teamcode.drive.DriveConstants
  *   6. Run StraightTest / SplineTest to verify
  *   7. Build your competition trajectories below
  */
+@Configurable
 @Autonomous(name = "Competition Auto", group = "Competition")
 class CompetitionAuto : LinearOpMode() {
-  private lateinit var leftDrive: DcMotorEx
-  private lateinit var rightDrive: DcMotorEx
-  private lateinit var intake: DcMotorEx
-  private lateinit var flywheel: DcMotorEx
-  private lateinit var gateLeft: Servo
-  private lateinit var gateRight: Servo
 
   override fun runOpMode() {
-    // Initialize hardware
-    leftDrive = hardwareMap.get(DcMotorEx::class.java, "left_drive")
-    rightDrive = hardwareMap.get(DcMotorEx::class.java, "right_drive")
-    intake = hardwareMap.get(DcMotorEx::class.java, "intake")
-    flywheel = hardwareMap.get(DcMotorEx::class.java, "outtake")
-    gateLeft = hardwareMap.get(Servo::class.java, "gate_left")
-    gateRight = hardwareMap.get(Servo::class.java, "gate_right")
+    // Initialize shared robot hardware + subsystems
+    val robot = Robot(hardwareMap)
+    val tm = JoinedTelemetry(PanelsTelemetry.ftcTelemetry, telemetry)
 
-    leftDrive.direction = DriveConstants.LEFT_DIRECTION
-    rightDrive.direction = DriveConstants.RIGHT_DIRECTION
-
-    leftDrive.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-    rightDrive.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-
-    leftDrive.mode = DcMotor.RunMode.RUN_USING_ENCODER
-    rightDrive.mode = DcMotor.RunMode.RUN_USING_ENCODER
-
-    leftDrive.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-    rightDrive.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+    // Initialize Road Runner drive (uses its own motor references)
+    val drive = SampleTankDrive(hardwareMap)
 
     // Define starting position on the field
     // TODO: Set this to your actual starting position
@@ -95,12 +78,17 @@ class CompetitionAuto : LinearOpMode() {
      *   .lineToLinearHeading(pos, heading) - Line with heading interpolation
      */
 
-    telemetry.addData("Status", "Initialized")
-    telemetry.addData("Start Pose", startPose.toString())
-    telemetry.addLine()
-    telemetry.addLine("⚠ Make sure DriveConstants are tuned!")
-    telemetry.addLine("See: learnroadrunner.com")
-    telemetry.update()
+    val trajectory1 =
+            drive.trajectoryBuilder(startPose)
+                    .forward(24.0) // Drive forward 24 inches
+                    .build()
+
+    tm.addData("Status", "Initialized")
+    tm.addData("Start Pose", startPose.toString())
+    tm.addLine()
+    tm.addLine("Make sure DriveConstants are tuned!")
+    tm.addLine("See: learnroadrunner.com")
+    tm.update()
 
     // Wait for the driver to press START
     waitForStart()
@@ -111,28 +99,37 @@ class CompetitionAuto : LinearOpMode() {
      * ============================
      * EXECUTE AUTONOMOUS SEQUENCE
      * ============================
-     * Follow trajectories and perform actions.
+     * Follow trajectories and perform actions using subsystems.
      *
      * Example:
      *
      * // Step 1: Drive to scoring position
      * drive.followTrajectory(trajectory1)
      *
-     * // Step 2: Score the sample
-     * intake.power = -1.0
+     * // Step 2: Score the sample using subsystems
+     * robot.intake.start()
      * sleep(500)
-     * intake.power = 0.0
+     * robot.intake.stop()
      *
-     * // Step 3: Drive to next position
-     * drive.followTrajectory(trajectory2)
+     * // Step 3: Shoot
+     * robot.shooter.setFlywheelPower(1.0)
+     * sleep(1000)
+     * robot.shooter.openGate()
+     * sleep(500)
+     * robot.shooter.closeGate()
+     * robot.shooter.stopFlywheel()
      *
      * // Step 4: Park
-     * drive.followTrajectory(trajectory3)
+     * drive.followTrajectory(trajectory2)
      */
 
-    // TODO: Add your autonomous sequence here
+    // Execute the trajectory
+    drive.followTrajectory(trajectory1)
 
-    telemetry.addData("Status", "Autonomous Complete")
-    telemetry.update()
+    // Stop all subsystems
+    robot.stopAll()
+
+    tm.addData("Status", "Autonomous Complete")
+    tm.update()
   }
 }
