@@ -38,7 +38,7 @@ class Robot(hardwareMap: HardwareMap) {
   val intake = Intake(intakeMotor, feeder)
   val shooter = Shooter(flywheelMotor, gateLeft, gateRight, colorSensor)
 	val vision = Vision(hardwareMap)
-
+	
   init {
     // Drive motors
     leftDrive.direction = DcMotorSimple.Direction.REVERSE

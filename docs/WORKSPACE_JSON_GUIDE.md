@@ -435,32 +435,32 @@ Clear the LSP cache (Step 3). The LSP caches the workspace model aggressively.
 
 ## Environment Reference
 
-| Component         | Value                                                     |
-|-------------------|-----------------------------------------------------------|
-| FTC SDK           | 11.1.0                                                    |
-| Kotlin            | 2.2.20                                                    |
-| Gradle            | 8.13                                                      |
-| AGP               | 8.13.2                                                    |
-| Android API       | 30 (FTC target)                                           |
-| JDK               | Zulu 21 at `C:\Program Files\Zulu\zulu-21`                |
-| Android SDK       | `C:\Users\jmorr\AppData\Local\Android\Sdk`                |
-| Kotlin LSP        | `jetbrains.kotlin` v261.13587.0                           |
-| VS Code           | 1.106.0                                                   |
-| OS                | Windows 11                                                |
-| LSP Storage       | `%APPDATA%\Code\User\workspaceStorage\<id>\JetBrains.kotlin` |
-| LSP JARs          | `%USERPROFILE%\.vscode\extensions\jetbrains.kotlin-*\server\lib\` |
+| Component   | Value                                                             |
+| ----------- | ----------------------------------------------------------------- |
+| FTC SDK     | 11.1.0                                                            |
+| Kotlin      | 2.2.20                                                            |
+| Gradle      | 8.13                                                              |
+| AGP         | 8.13.2                                                            |
+| Android API | 30 (FTC target)                                                   |
+| JDK         | Zulu 21 at `C:\Program Files\Zulu\zulu-21`                        |
+| Android SDK | `C:\Users\jmorr\AppData\Local\Android\Sdk`                        |
+| Kotlin LSP  | `jetbrains.kotlin` v261.13587.0                                   |
+| VS Code     | 1.106.0                                                           |
+| OS          | Windows 11                                                        |
+| LSP Storage | `%APPDATA%\Code\User\workspaceStorage\<id>\JetBrains.kotlin`      |
+| LSP JARs    | `%USERPROFILE%\.vscode\extensions\jetbrains.kotlin-*\server\lib\` |
 
 ---
 
 ## Files
 
-| File                 | Purpose                        | Committed? |
-|----------------------|--------------------------------|------------|
-| `workspace.json`     | LSP project model              | ✅ Yes      |
-| `docs/WORKSPACE_JSON_GUIDE.md` | This guide            | ✅ Yes      |
-| `print-classpath.gradle` | Temp: classpath extraction | ❌ Delete after use |
-| `classpath.txt`      | Temp: classpath dump output    | ❌ Delete after use |
-| `gen_workspace.py`   | Temp: generation script        | ❌ Delete after use |
+| File                           | Purpose                     | Committed?         |
+| ------------------------------ | --------------------------- | ------------------ |
+| `workspace.json`               | LSP project model           | ✅ Yes              |
+| `docs/WORKSPACE_JSON_GUIDE.md` | This guide                  | ✅ Yes              |
+| `print-classpath.gradle`       | Temp: classpath extraction  | ❌ Delete after use |
+| `classpath.txt`                | Temp: classpath dump output | ❌ Delete after use |
+| `gen_workspace.py`             | Temp: generation script     | ❌ Delete after use |
 
 ---
 
@@ -468,14 +468,14 @@ Clear the LSP cache (Step 3). The LSP caches the workspace model aggressively.
 
 These were found by decompiling the LSP server JARs with `javap`:
 
-| Class | JAR | Key Finding |
-|-------|-----|-------------|
-| `SdkRootData` | `language-server.project-import.jar` | `url: String`, `type: String` |
-| `LibraryRootData` | `language-server.project-import.jar` | `path: String`, `type: String`, `inclusionOptions: InclusionOptions?` |
-| `LibraryRootTypeId` | `intellij.platform.workspace.jps.jar` | `COMPILED.name = "CLASSES"`, `SOURCES.name = "SOURCES"` |
-| `SdkRootTypeId` | `intellij.platform.workspace.jps.jar` | Constructor takes a String name |
-| `KotlinSettingsData.KotlinModuleKind` | `language-server.project-import.jar` | Enum uses **lowercase** values |
-| `ConversionKt` | `language-server.project-import.jar` | `compilerArguments` first char = type prefix (J/S/M/N), rest = Gson JSON |
-| `UriKt.toIntellijUri` | `language-server.project-import.jar` | SDK root URLs pass through `asIntelliJUriString()` → `UriConverter` round-trip |
-| `ConversionKt.toAbsolutePath` | `language-server.project-import.jar` | `<WORKSPACE>/` and `<HOME>/` are special path prefixes |
-| `DependencyData.*` | `language-server.project-import.jar` | Strict deserialization — no unknown keys allowed |
+| Class                                 | JAR                                   | Key Finding                                                                    |
+| ------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------ |
+| `SdkRootData`                         | `language-server.project-import.jar`  | `url: String`, `type: String`                                                  |
+| `LibraryRootData`                     | `language-server.project-import.jar`  | `path: String`, `type: String`, `inclusionOptions: InclusionOptions?`          |
+| `LibraryRootTypeId`                   | `intellij.platform.workspace.jps.jar` | `COMPILED.name = "CLASSES"`, `SOURCES.name = "SOURCES"`                        |
+| `SdkRootTypeId`                       | `intellij.platform.workspace.jps.jar` | Constructor takes a String name                                                |
+| `KotlinSettingsData.KotlinModuleKind` | `language-server.project-import.jar`  | Enum uses **lowercase** values                                                 |
+| `ConversionKt`                        | `language-server.project-import.jar`  | `compilerArguments` first char = type prefix (J/S/M/N), rest = Gson JSON       |
+| `UriKt.toIntellijUri`                 | `language-server.project-import.jar`  | SDK root URLs pass through `asIntelliJUriString()` → `UriConverter` round-trip |
+| `ConversionKt.toAbsolutePath`         | `language-server.project-import.jar`  | `<WORKSPACE>/` and `<HOME>/` are special path prefixes                         |
+| `DependencyData.*`                    | `language-server.project-import.jar`  | Strict deserialization — no unknown keys allowed                               |

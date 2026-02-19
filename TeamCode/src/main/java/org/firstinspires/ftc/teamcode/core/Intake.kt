@@ -35,7 +35,7 @@ class Intake(private val motor: DcMotorEx, private val feeder: Servo) {
      * Time in milliseconds to wait for the feeder servo to reach the start position before
      * sweeping.
      */
-    const val FEEDER_RESET_DELAY = 300L
+    const val FEEDER_RESET_DELAY = 500L
 
     const val FEEDER_SWEEP_START = 0.2
     const val FEEDER_SWEEP_END = 0.8
