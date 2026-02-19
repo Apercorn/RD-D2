@@ -1,0 +1,2137 @@
+{
+	"modules": [
+		{
+			"name": "TeamCode.main",
+			"type": "JAVA_MODULE",
+			"dependencies": [
+				{
+					"type": "moduleSource"
+				},
+				{
+					"type": "sdk",
+					"name": "Java SDK",
+					"kind": "JavaSDK"
+				},
+				{
+					"type": "library",
+					"name": "fullpanels-1.0.12",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "appcompat-1.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "fragment-1.3.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "activity-1.8.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "appcompat-resources-1.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "drawerlayout-1.1.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "vectordrawable-animated-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "vectordrawable-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "viewpager-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "customview-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "loader-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-livedata-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-common-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-livedata-core-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-viewmodel-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-runtime-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-viewmodel-savedstate-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-ktx-1.13.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-1.13.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "savedstate-1.2.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-0.5.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-jdk8-1.8.22",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "panels-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "opmodecontrol-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "telemetry-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "configurables-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "themes-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "capture-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "limelightproxy-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "gamepad-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "field-1.0.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "docs-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "battery-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "utils-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "pinger-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "graph-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lights-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "camerastream-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "dashboard-0.4.15",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "cursoradapter-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "versionedparcelable-1.1.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "collection-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-runtime-2.2.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-common-2.2.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "interpolator-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotation-jvm-1.6.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotation-experimental-1.4.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-jdk7-1.8.22",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlinx-coroutines-core-jvm-1.8.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlinx-coroutines-android-1.8.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-2.2.20",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Inspection-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Blocks-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "RobotCore-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "RobotServer-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "OnBotJava-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Hardware-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "FtcCommon-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Vision-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "commons-math3-3.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-annotations-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-core-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-databind-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotations-23.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "threetenabp-1.3.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "threetenbp-1.5.1-no-tzdb",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "easyopencv-1.7.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "opencv-repackaged-bundled-dylibs-4.10.0-A",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "apriltag-2.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-0.4.15",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "nanohttpd-websocket-2.3.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "android-platform",
+					"scope": "compile"
+				}
+			],
+			"contentRoots": [
+				{
+					"path": "<WORKSPACE>/TeamCode",
+					"sourceRoots": [
+						{
+							"path": "<WORKSPACE>/TeamCode/src/main/java",
+							"type": "java-source"
+						}
+					],
+					"excludedUrls": [
+						"<WORKSPACE>/TeamCode/build"
+					]
+				}
+			]
+		},
+		{
+			"name": "TeamCode.test",
+			"type": "JAVA_MODULE",
+			"dependencies": [
+				{
+					"type": "moduleSource"
+				},
+				{
+					"type": "sdk",
+					"name": "Java SDK",
+					"kind": "JavaSDK"
+				},
+				{
+					"type": "module",
+					"name": "TeamCode.main",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "fullpanels-1.0.12",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "appcompat-1.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "fragment-1.3.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "activity-1.8.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "appcompat-resources-1.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "drawerlayout-1.1.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "vectordrawable-animated-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "vectordrawable-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "viewpager-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "customview-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "loader-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-livedata-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-common-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-livedata-core-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-viewmodel-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-runtime-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-viewmodel-savedstate-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-ktx-1.13.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-1.13.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "savedstate-1.2.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-0.5.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-jdk8-1.8.22",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "panels-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "opmodecontrol-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "telemetry-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "configurables-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "themes-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "capture-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "limelightproxy-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "gamepad-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "field-1.0.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "docs-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "battery-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "utils-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "pinger-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "graph-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lights-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "camerastream-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "dashboard-0.4.15",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "cursoradapter-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "versionedparcelable-1.1.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "collection-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-runtime-2.2.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-common-2.2.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "interpolator-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotation-jvm-1.6.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotation-experimental-1.4.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-jdk7-1.8.22",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlinx-coroutines-core-jvm-1.8.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlinx-coroutines-android-1.8.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-2.2.20",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Inspection-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Blocks-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "RobotCore-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "RobotServer-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "OnBotJava-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Hardware-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "FtcCommon-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Vision-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "commons-math3-3.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-annotations-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-core-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-databind-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotations-23.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "threetenabp-1.3.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "threetenbp-1.5.1-no-tzdb",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "easyopencv-1.7.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "opencv-repackaged-bundled-dylibs-4.10.0-A",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "apriltag-2.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-0.4.15",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "nanohttpd-websocket-2.3.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "android-platform",
+					"scope": "compile"
+				}
+			],
+			"contentRoots": [
+				{
+					"path": "<WORKSPACE>/TeamCode"
+				}
+			]
+		},
+		{
+			"name": "FtcRobotController.main",
+			"type": "JAVA_MODULE",
+			"dependencies": [
+				{
+					"type": "moduleSource"
+				},
+				{
+					"type": "sdk",
+					"name": "Java SDK",
+					"kind": "JavaSDK"
+				},
+				{
+					"type": "library",
+					"name": "fullpanels-1.0.12",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "appcompat-1.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "fragment-1.3.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "activity-1.8.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "appcompat-resources-1.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "drawerlayout-1.1.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "vectordrawable-animated-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "vectordrawable-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "viewpager-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "customview-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "loader-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-livedata-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-common-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-livedata-core-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-viewmodel-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-runtime-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lifecycle-viewmodel-savedstate-2.6.2",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-ktx-1.13.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-1.13.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "savedstate-1.2.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-0.5.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-jdk8-1.8.22",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "panels-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "opmodecontrol-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "telemetry-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "configurables-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "themes-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "capture-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "limelightproxy-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "gamepad-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "field-1.0.6",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "docs-1.0.5",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "battery-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "utils-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "pinger-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "graph-1.0.4",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "lights-1.0.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "camerastream-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "dashboard-0.4.15",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "cursoradapter-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "versionedparcelable-1.1.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "collection-1.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-runtime-2.2.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-common-2.2.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "interpolator-1.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotation-jvm-1.6.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotation-experimental-1.4.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-jdk7-1.8.22",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlinx-coroutines-core-jvm-1.8.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlinx-coroutines-android-1.8.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "kotlin-stdlib-2.2.20",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Inspection-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Blocks-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "RobotCore-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "RobotServer-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "OnBotJava-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Hardware-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "FtcCommon-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "Vision-11.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "commons-math3-3.6.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-annotations-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-core-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "jackson-databind-2.12.7",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "annotations-23.0.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "threetenabp-1.3.1",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "threetenbp-1.5.1-no-tzdb",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "easyopencv-1.7.3",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "opencv-repackaged-bundled-dylibs-4.10.0-A",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "apriltag-2.1.0",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "core-0.4.15",
+					"scope": "compile"
+				},
+				{
+					"type": "library",
+					"name": "nanohttpd-websocket-2.3.1",
+					"scope": "compile"
+				}
+			],
+			"contentRoots": [
+				{
+					"path": "<WORKSPACE>/FtcRobotController",
+					"sourceRoots": [
+						{
+							"path": "<WORKSPACE>/FtcRobotController/src/main/java",
+							"type": "java-source"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "FtcRobotController.test",
+			"type": "JAVA_MODULE",
+			"dependencies": [
+				{
+					"type": "moduleSource"
+				},
+				{
+					"type": "sdk",
+					"name": "Java SDK",
+					"kind": "JavaSDK"
+				},
+				{
+					"type": "module",
+					"name": "FtcRobotController.main",
+					"scope": "compile"
+				}
+			],
+			"contentRoots": [
+				{
+					"path": "<WORKSPACE>/FtcRobotController"
+				}
+			]
+		},
+		{
+			"name": "RD-D2.main",
+			"type": "JAVA_MODULE",
+			"dependencies": [
+				{
+					"type": "moduleSource"
+				},
+				{
+					"type": "sdk",
+					"name": "Java SDK",
+					"kind": "JavaSDK"
+				}
+			],
+			"contentRoots": [
+				{
+					"path": "<WORKSPACE>/"
+				}
+			]
+		},
+		{
+			"name": "RD-D2.test",
+			"type": "JAVA_MODULE",
+			"dependencies": [
+				{
+					"type": "moduleSource"
+				},
+				{
+					"type": "sdk",
+					"name": "Java SDK",
+					"kind": "JavaSDK"
+				},
+				{
+					"type": "module",
+					"name": "RD-D2.main",
+					"scope": "compile"
+				}
+			],
+			"contentRoots": [
+				{
+					"path": "<WORKSPACE>/"
+				}
+			]
+		}
+	],
+	"libraries": [
+		{
+			"name": "fullpanels-1.0.12",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/71dd89dda271cf23db85b66d54d049c5/transformed/fullpanels-1.0.12/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "appcompat-1.6.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/dc5db4b2668f2eb81ad92336e7f7a63e/transformed/appcompat-1.6.1/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "fragment-1.3.6",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/986199cfc94244363e7e2378c9af71af/transformed/fragment-1.3.6/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "activity-1.8.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/23442aad6d2e282b2b5909634ae1d4d8/transformed/activity-1.8.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "appcompat-resources-1.6.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/30054b123fb58d8be219a716c62ac0af/transformed/appcompat-resources-1.6.1/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "drawerlayout-1.1.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/12d73be081b5babdb295f72d11563a6f/transformed/drawerlayout-1.1.1/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "vectordrawable-animated-1.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/68cc90d7054e998c18e1216157cf286b/transformed/vectordrawable-animated-1.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "vectordrawable-1.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/4c81106b04fd77302c53a02ce7c81a31/transformed/vectordrawable-1.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "viewpager-1.0.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/20449921c77c5c8bcc9fa2e9f69e2237/transformed/viewpager-1.0.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "customview-1.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/10393f50590554b991513c8f87195928/transformed/customview-1.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "loader-1.0.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/0a9b06556d1cb5bfbea606236e67e7f8/transformed/loader-1.0.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "lifecycle-livedata-2.6.2",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/18f36d028774f2a44c7ecf55650e5ff1/transformed/lifecycle-livedata-2.6.2/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "lifecycle-common-2.6.2",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.6.2/10f354fdb64868baecd67128560c5a0d6312c495/lifecycle-common-2.6.2.jar"
+				}
+			]
+		},
+		{
+			"name": "lifecycle-livedata-core-2.6.2",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/107e8fe65eb30f8792437a784fda0121/transformed/lifecycle-livedata-core-2.6.2/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "lifecycle-viewmodel-2.6.2",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/502f0ccabb9ba4af17bd93d5e358e2cb/transformed/lifecycle-viewmodel-2.6.2/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "lifecycle-runtime-2.6.2",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/be1c2c43d1367ed840e82124da9387b5/transformed/lifecycle-runtime-2.6.2/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "lifecycle-viewmodel-savedstate-2.6.2",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/68894e8c35262df8fdd672d4e364b2aa/transformed/lifecycle-viewmodel-savedstate-2.6.2/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "core-ktx-1.13.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/5c8f95a8118c4012e0927005038e1333/transformed/core-ktx-1.13.1/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "core-1.13.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/0b859075e2d70efbddca1036ef21505a/transformed/core-1.13.1/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "savedstate-1.2.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/a831d6f714d7d2eee3880190e7cc3f7d/transformed/savedstate-1.2.1/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "core-0.5.6",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/com.acmerobotics.roadrunner/core/0.5.6/6cc85ed97a60f16ed7b2a0a98f9f887005a391c/core-0.5.6.jar"
+				}
+			]
+		},
+		{
+			"name": "kotlin-stdlib-jdk8-1.8.22",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.8.22/b25c86d47d6b962b9cf0f8c3f320c8a10eea3dd1/kotlin-stdlib-jdk8-1.8.22.jar"
+				}
+			]
+		},
+		{
+			"name": "panels-1.0.5",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/061ea34c399fda0c8fa4514e8d8c5464/transformed/panels-1.0.5/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "opmodecontrol-1.0.3",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/a839d733dfe377c3ad2f413a9b926a5e/transformed/opmodecontrol-1.0.3/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "telemetry-1.0.5",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/1003ace8234e4e5ee08abc145d2cea5d/transformed/telemetry-1.0.5/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "configurables-1.0.5",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/5ced08e9d916479a362e0418710f1420/transformed/configurables-1.0.5/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "themes-1.0.3",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/127ee9aeaf341b6dabf4131915a65816/transformed/themes-1.0.3/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "capture-1.0.3",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/2107c3813936463b3a4876d7b5f10531/transformed/capture-1.0.3/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "limelightproxy-1.0.4",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/595e84322734c61e706458f574354c65/transformed/limelightproxy-1.0.4/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "gamepad-1.0.4",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/46fe4213f7df37805b74294408694981/transformed/gamepad-1.0.4/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "field-1.0.6",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/127026881dc015fd9f55ebcbcaee2e41/transformed/field-1.0.6/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "docs-1.0.5",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/053a19de1b485f3a01c5ec138ffef901/transformed/docs-1.0.5/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "battery-1.0.3",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/34e2511ebe78d502157e5b3ebae6abf0/transformed/battery-1.0.3/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "utils-1.0.4",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/44e1ad16b3b39ebd4aa84f4d86e1b5cc/transformed/utils-1.0.4/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "pinger-1.0.3",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/64ad5840935d149b0e25c35033549508/transformed/pinger-1.0.3/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "graph-1.0.4",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/1eb2aa62201afd07697599d2bad31a50/transformed/graph-1.0.4/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "lights-1.0.3",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/6c5ba161f5d07e26a585f2bf781c6d0c/transformed/lights-1.0.3/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "camerastream-1.0.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/226c2952a477d6cbbf136c6fee245565/transformed/camerastream-1.0.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "dashboard-0.4.15",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/c826eb1371f64cc65466715675319406/transformed/dashboard-0.4.15/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "cursoradapter-1.0.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/661b6873147d243606f060e91429e5d4/transformed/cursoradapter-1.0.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "versionedparcelable-1.1.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/3e20e0d2829d1fce182c32adbf9570d9/transformed/versionedparcelable-1.1.1/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "collection-1.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/androidx.collection/collection/1.1.0/1f27220b47669781457de0d600849a5de0e89909/collection-1.1.0.jar"
+				}
+			]
+		},
+		{
+			"name": "core-runtime-2.2.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/2266cbde24fbbf219f13683e89b29c15/transformed/core-runtime-2.2.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "core-common-2.2.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.2.0/5e1b8b81dfd5f52c56a8d53b18ca759c19a301f3/core-common-2.2.0.jar"
+				}
+			]
+		},
+		{
+			"name": "interpolator-1.0.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/31c39396df1057252c4de15c445053f0/transformed/interpolator-1.0.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "annotation-jvm-1.6.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/androidx.annotation/annotation-jvm/1.6.0/a7257339a052df0f91433cf9651231bbb802b502/annotation-jvm-1.6.0.jar"
+				}
+			]
+		},
+		{
+			"name": "annotation-experimental-1.4.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/197805f86c3266f2a00229dbf4bd3b60/transformed/annotation-experimental-1.4.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "kotlin-stdlib-jdk7-1.8.22",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.8.22/4dabb8248310d833bb6a8b516024a91fd3d275c/kotlin-stdlib-jdk7-1.8.22.jar"
+				}
+			]
+		},
+		{
+			"name": "kotlinx-coroutines-core-jvm-1.8.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.8.1/bb0e192bd7c2b6b8217440d36e9758e377e450/kotlinx-coroutines-core-jvm-1.8.1.jar"
+				}
+			]
+		},
+		{
+			"name": "kotlinx-coroutines-android-1.8.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-android/1.8.1/73e2acdd18df99dd4849d99f188dff529fc0afe0/kotlinx-coroutines-android-1.8.1.jar"
+				}
+			]
+		},
+		{
+			"name": "kotlin-stdlib-2.2.20",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.2.20/5380b19fa1924399b62ce3a1faffebb2b4f82272/kotlin-stdlib-2.2.20.jar"
+				}
+			]
+		},
+		{
+			"name": "Inspection-11.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/342a8c4024a06bca97407683312a0f6b/transformed/Inspection-11.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "Blocks-11.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/17f6fe6f36aed22ea31012fb6263ea20/transformed/Blocks-11.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "RobotCore-11.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/8131620a959102480c90e7493e640607/transformed/RobotCore-11.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "RobotServer-11.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/33599a06cb80e6aff9405446d4b8ad72/transformed/RobotServer-11.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "OnBotJava-11.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/a1b745afd6da1e495f7f1e8f99afd27c/transformed/OnBotJava-11.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "Hardware-11.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/3fafc7692ca35d1cd53372a0e7722e41/transformed/Hardware-11.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "FtcCommon-11.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/45458acba25704b31bb9a2e273462298/transformed/FtcCommon-11.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "Vision-11.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/1ea8837f2d7305beea3bab13f5226843/transformed/Vision-11.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "commons-math3-3.6.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-math3/3.6.1/e4ba98f1d4b3c80ec46392f25e094a6a2e58fcbf/commons-math3-3.6.1.jar"
+				}
+			]
+		},
+		{
+			"name": "jackson-annotations-2.12.7",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.12.7/2042461b754cd65ab2dd74a9f19f442b54625f19/jackson-annotations-2.12.7.jar"
+				}
+			]
+		},
+		{
+			"name": "jackson-core-2.12.7",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.12.7/4669a54b799c105572aa8de2a1ae0fe64a17745/jackson-core-2.12.7.jar"
+				}
+			]
+		},
+		{
+			"name": "jackson-databind-2.12.7",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.12.7/c48e7b68d8cbfec1347e357ee2682e825f861127/jackson-databind-2.12.7.jar"
+				}
+			]
+		},
+		{
+			"name": "annotations-23.0.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar"
+				}
+			]
+		},
+		{
+			"name": "threetenabp-1.3.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/2ac2591d7759df3bf3a9a01fa6b4be47/transformed/threetenabp-1.3.1/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "threetenbp-1.5.1-no-tzdb",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.threeten/threetenbp/1.5.1/1d66c467c82fa2d01858f196d3600069368a8ccb/threetenbp-1.5.1-no-tzdb.jar"
+				}
+			]
+		},
+		{
+			"name": "easyopencv-1.7.3",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/0037f9634bdfdedd0152a47a6a42e8d9/transformed/easyopencv-1.7.3/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "opencv-repackaged-bundled-dylibs-4.10.0-A",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/2218cba20f6a34a455a15a7957d1ea07/transformed/opencv-repackaged-bundled-dylibs-4.10.0-A/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "apriltag-2.1.0",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/8.13/transforms/048fa98888f4d53437c72eb1ccb8e240/transformed/apriltag-2.1.0/jars/classes.jar"
+				}
+			]
+		},
+		{
+			"name": "core-0.4.15",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/com.acmerobotics.dashboard/core/0.4.15/a59e159268510c6254fd83dfe79dabd265e46b31/core-0.4.15.jar"
+				}
+			]
+		},
+		{
+			"name": "nanohttpd-websocket-2.3.1",
+			"type": "repository",
+			"roots": [
+				{
+					"type": "CLASSES",
+					"path": "C:/Users/jmorr/.gradle/caches/modules-2/files-2.1/org.nanohttpd/nanohttpd-websocket/2.3.1/f2cfb09cee12469ff64f0d698b13de19903bb4f7/nanohttpd-websocket-2.3.1.jar"
+				}
+			]
+		},
+		{
+			"name": "android-platform",
+			"type": null,
+			"roots": [
+				{
+					"path": "C:/Users/jmorr/AppData/Local/Android/Sdk/platforms/android-30/android.jar",
+					"type": "CLASSES"
+				}
+			],
+			"excludedRoots": []
+		}
+	],
+	"sdks": [
+		{
+			"version": "30",
+			"name": "Java SDK",
+			"homePath": "C:/Users/jmorr/AppData/Local/Android/Sdk",
+			"type": "JavaSDK",
+			"additionalData": "",
+			"roots": [
+				{
+					"url": "jar://C:/Users/jmorr/AppData/Local/Android/Sdk/platforms/android-30/android.jar!/",
+					"type": "CLASSES"
+				}
+			]
+		}
+	],
+	"kotlinSettings": [
+		{
+			"name": "Kotlin",
+			"sourceRoots": [
+				"<WORKSPACE>/TeamCode/src/main/java"
+			],
+			"configFileItems": [],
+			"module": "TeamCode.main",
+			"useProjectSettings": true,
+			"implementedModuleNames": [],
+			"dependsOnModuleNames": [],
+			"additionalVisibleModuleNames": [],
+			"productionOutputPath": null,
+			"testOutputPath": null,
+			"sourceSetNames": [
+				"main"
+			],
+			"isTestModule": false,
+			"externalProjectId": "TeamCode",
+			"isHmppEnabled": false,
+			"pureKotlinSourceFolders": [
+				"<WORKSPACE>/TeamCode/src/main/java"
+			],
+			"kind": "default",
+			"compilerArguments": "J{\"jvmTarget\":\"1.8\",\"apiVersion\":\"2.2\",\"languageVersion\":\"2.2\"}",
+			"additionalArguments": null,
+			"scriptTemplates": null,
+			"scriptTemplatesClasspath": null,
+			"outputDirectoryForJsLibraryFiles": null,
+			"targetPlatform": "JVM (1.8)",
+			"externalSystemRunTasks": [],
+			"version": 5,
+			"flushNeeded": false
+		},
+		{
+			"name": "Kotlin",
+			"sourceRoots": [],
+			"configFileItems": [],
+			"module": "TeamCode.test",
+			"useProjectSettings": true,
+			"implementedModuleNames": [],
+			"dependsOnModuleNames": [],
+			"additionalVisibleModuleNames": [
+				"TeamCode.main"
+			],
+			"productionOutputPath": null,
+			"testOutputPath": null,
+			"sourceSetNames": [],
+			"isTestModule": true,
+			"externalProjectId": "TeamCode",
+			"isHmppEnabled": false,
+			"pureKotlinSourceFolders": [],
+			"kind": "default",
+			"compilerArguments": null,
+			"additionalArguments": null,
+			"scriptTemplates": null,
+			"scriptTemplatesClasspath": null,
+			"outputDirectoryForJsLibraryFiles": null,
+			"targetPlatform": "JVM (1.8)",
+			"externalSystemRunTasks": [],
+			"version": 5,
+			"flushNeeded": false
+		},
+		{
+			"name": "Kotlin",
+			"sourceRoots": [],
+			"configFileItems": [],
+			"module": "FtcRobotController.main",
+			"useProjectSettings": true,
+			"implementedModuleNames": [],
+			"dependsOnModuleNames": [],
+			"additionalVisibleModuleNames": [],
+			"productionOutputPath": null,
+			"testOutputPath": null,
+			"sourceSetNames": [],
+			"isTestModule": false,
+			"externalProjectId": "FtcRobotController",
+			"isHmppEnabled": false,
+			"pureKotlinSourceFolders": [],
+			"kind": "default",
+			"compilerArguments": null,
+			"additionalArguments": null,
+			"scriptTemplates": null,
+			"scriptTemplatesClasspath": null,
+			"outputDirectoryForJsLibraryFiles": null,
+			"targetPlatform": null,
+			"externalSystemRunTasks": [],
+			"version": 5,
+			"flushNeeded": false
+		},
+		{
+			"name": "Kotlin",
+			"sourceRoots": [],
+			"configFileItems": [],
+			"module": "FtcRobotController.test",
+			"useProjectSettings": true,
+			"implementedModuleNames": [],
+			"dependsOnModuleNames": [],
+			"additionalVisibleModuleNames": [
+				"FtcRobotController.main"
+			],
+			"productionOutputPath": null,
+			"testOutputPath": null,
+			"sourceSetNames": [],
+			"isTestModule": true,
+			"externalProjectId": "FtcRobotController",
+			"isHmppEnabled": false,
+			"pureKotlinSourceFolders": [],
+			"kind": "default",
+			"compilerArguments": null,
+			"additionalArguments": null,
+			"scriptTemplates": null,
+			"scriptTemplatesClasspath": null,
+			"outputDirectoryForJsLibraryFiles": null,
+			"targetPlatform": null,
+			"externalSystemRunTasks": [],
+			"version": 5,
+			"flushNeeded": false
+		},
+		{
+			"name": "Kotlin",
+			"sourceRoots": [],
+			"configFileItems": [],
+			"module": "RD-D2.main",
+			"useProjectSettings": true,
+			"implementedModuleNames": [],
+			"dependsOnModuleNames": [],
+			"additionalVisibleModuleNames": [],
+			"productionOutputPath": null,
+			"testOutputPath": null,
+			"sourceSetNames": [],
+			"isTestModule": true,
+			"externalProjectId": "",
+			"isHmppEnabled": true,
+			"pureKotlinSourceFolders": [],
+			"kind": "default",
+			"compilerArguments": null,
+			"additionalArguments": null,
+			"scriptTemplates": null,
+			"scriptTemplatesClasspath": null,
+			"outputDirectoryForJsLibraryFiles": null,
+			"targetPlatform": null,
+			"externalSystemRunTasks": [],
+			"version": 5,
+			"flushNeeded": false
+		},
+		{
+			"name": "Kotlin",
+			"sourceRoots": [],
+			"configFileItems": [],
+			"module": "RD-D2.test",
+			"useProjectSettings": true,
+			"implementedModuleNames": [],
+			"dependsOnModuleNames": [],
+			"additionalVisibleModuleNames": [
+				"RD-D2.main"
+			],
+			"productionOutputPath": null,
+			"testOutputPath": null,
+			"sourceSetNames": [],
+			"isTestModule": true,
+			"externalProjectId": "",
+			"isHmppEnabled": true,
+			"pureKotlinSourceFolders": [],
+			"kind": "default",
+			"compilerArguments": null,
+			"additionalArguments": null,
+			"scriptTemplates": null,
+			"scriptTemplatesClasspath": null,
+			"outputDirectoryForJsLibraryFiles": null,
+			"targetPlatform": null,
+			"externalSystemRunTasks": [],
+			"version": 5,
+			"flushNeeded": false
+		}
+	]
+}
