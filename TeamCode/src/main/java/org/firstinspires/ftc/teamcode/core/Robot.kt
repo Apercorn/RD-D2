@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.core
 
-import com.qualcomm.robotcore.hardware.ColorSensor
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
@@ -31,12 +30,11 @@ class Robot(hardwareMap: HardwareMap) {
   val gateLeft: Servo = hardwareMap.get(Servo::class.java, "gate_left")
   val gateRight: Servo = hardwareMap.get(Servo::class.java, "gate_right")
 	val feeder: Servo = hardwareMap.get(Servo::class.java, "flywheel_feeder")
-  val colorSensor: ColorSensor = hardwareMap.get(ColorSensor::class.java, "next_artifact")
 
   // ── Subsystems ──
   val drive = Drive(leftDrive, rightDrive)
   val intake = Intake(intakeMotor, feeder)
-  val shooter = Shooter(flywheelMotor, gateLeft, gateRight, colorSensor)
+  val shooter = Shooter(flywheelMotor, gateLeft, gateRight)
 	val vision = Vision(hardwareMap)
 	
   init {
@@ -65,7 +63,7 @@ class Robot(hardwareMap: HardwareMap) {
 		intake.resetFeeder()
   }
 
-  /** Stop all motors. Call in OpMode stop(). */
+  /** Stop all motors */
   fun stopAll() {
     drive.stop()
     intake.stop()

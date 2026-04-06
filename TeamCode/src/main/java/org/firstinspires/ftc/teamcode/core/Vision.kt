@@ -42,171 +42,172 @@ import org.opencv.core.Mat
  * ```
  */
 class Vision(
-        hardwareMap: HardwareMap,
-        cameraName: String = "Camera",
-        resolution: Size = Size(640, 480),
-        decimation: Float = 2.0f
+	hardwareMap: HardwareMap,
+	cameraName: String = "Camera",
+	resolution: Size = Size(640, 480),
+	decimation: Float = 2.0f
 ) {
 
-  /** Frame processor for Panels dashboard camera stream. */
-  private val frameProcessor = FrameProcessor()
+	/** Frame processor for Panels dashboard camera stream. */
+	private val frameProcessor = FrameProcessor()
 
-  /** AprilTag processor for tag detection. */
-  val aprilTag: AprilTagProcessor =
-          AprilTagProcessor.Builder().build().also { it.setDecimation(decimation) }
+	/** AprilTag processor for tag detection. */
+	val aprilTag: AprilTagProcessor =
+		AprilTagProcessor.Builder().build().also { it.setDecimation(decimation) }
 
-  /** FTC Vision portal. */
-  val visionPortal: VisionPortal =
-          VisionPortal.Builder()
-                  .setCamera(hardwareMap.get(WebcamName::class.java, cameraName))
-                  .setCameraResolution(resolution)
-                  .addProcessor(aprilTag)
-                  .addProcessor(frameProcessor)
-                  .build()
+	/** FTC Vision portal. */
+	val visionPortal: VisionPortal =
+		VisionPortal.Builder()
+			.setCamera(hardwareMap.get(WebcamName::class.java, cameraName))
+			.setCameraResolution(resolution)
+			.addProcessor(aprilTag)
+			.addProcessor(frameProcessor)
+			.build()
 
-  private var streaming = false
+	private var streaming = false
 
-  // ── Panels Camera Stream ──
+	// ── Panels Camera Stream ──
 
-  /** Start streaming frames to the Panels dashboard. */
-  fun startStreaming() {
-    PanelsCameraStream.startStream(frameProcessor)
-    streaming = true
-  }
+	/** Start streaming frames to the Panels dashboard. */
+	fun startStreaming() {
+		PanelsCameraStream.startStream(frameProcessor)
+		streaming = true
+	}
 
-  /** Stop the Panels stream (saves CPU). */
-  fun stopStreaming() {
-    PanelsCameraStream.stopStream()
-    streaming = false
-  }
+	/** Stop the Panels stream (saves CPU). */
+	fun stopStreaming() {
+		PanelsCameraStream.stopStream()
+		streaming = false
+	}
 
-  /** Whether the Panels stream is active. */
-  val isStreaming: Boolean
-    get() = streaming
+	/** Whether the Panels stream is active. */
+	val isStreaming: Boolean
+		get() = streaming
 
-  /** Pause the VisionPortal camera (saves more CPU). */
-  fun pauseCamera() = visionPortal.stopStreaming()
+	/** Pause the VisionPortal camera (saves more CPU). */
+	fun pauseCamera() = visionPortal.stopStreaming()
 
-  /** Resume the VisionPortal camera. */
-  fun resumeCamera() = visionPortal.resumeStreaming()
+	/** Resume the VisionPortal camera. */
+	fun resumeCamera() = visionPortal.resumeStreaming()
 
-  // ── AprilTag Detections ──
+	// ── AprilTag Detections ──
 
-  /** All currently-detected AprilTags. */
-  val detections: List<AprilTagDetection>
-    get() = aprilTag.detections
+	/** All currently-detected AprilTags. */
+	val detections: List<AprilTagDetection>
+		get() = aprilTag.detections
 
-  /** Number of detected tags. */
-  val tagCount: Int
-    get() = detections.size
+	/** Number of detected tags. */
+	val tagCount: Int
+		get() = detections.size
 
-  /** Get a specific tag detection by ID, or null if not visible. */
-  fun getTag(id: Int): AprilTagDetection? = detections.firstOrNull { it.id == id }
+	/** Get a specific tag detection by ID, or null if not visible. */
+	fun getTag(id: Int): AprilTagDetection? = detections.firstOrNull { it.id == id }
 
-  /** Check whether a specific tag is currently visible. */
-  fun isTagVisible(id: Int): Boolean = getTag(id) != null
+	/** Check whether a specific tag is currently visible. */
+	fun isTagVisible(id: Int): Boolean = getTag(id) != null
 
-  // ── Auto-Alignment ──
+	// ── Auto-Alignment ──
 
-  /**
-   * Alignment result containing steering correction and range info.
-   *
-   * @property steer Normalized steering value (-1..1). Negative = turn left, positive = turn right.
-   * @property range Distance to the tag in inches.
-   * @property bearing Horizontal angle to the tag in degrees.
-   * @property yaw Tag rotation relative to camera in degrees.
-   */
-  data class AlignmentResult(
-          val steer: Double,
-          val range: Double,
-          val bearing: Double,
-          val yaw: Double
-  )
+	/**
+	 * Alignment result containing steering correction and range info.
+	 *
+	 * @property steer Normalized steering value (-1..1). Negative = turn left, positive = turn right.
+	 * @property range Distance to the tag in inches.
+	 * @property bearing Horizontal angle to the tag in degrees.
+	 * @property yaw Tag rotation relative to camera in degrees.
+	 */
+	data class AlignmentResult(
+		val steer: Double,
+		val range: Double,
+		val bearing: Double,
+		val yaw: Double
+	)
 
-  /**
-   * Proportional gain for bearing correction in alignment. Higher values = more aggressive turning
-   * toward the tag.
-   */
-  var bearingGain = 0.02
+	/**
+	 * Proportional gain for bearing correction in alignment. Higher values = more aggressive turning
+	 * toward the tag.
+	 */
+	var bearingGain = 0.02
 
-  /** Proportional gain for yaw correction in alignment. Helps the robot face the tag head-on. */
-  var yawGain = 0.01
+	/** Proportional gain for yaw correction in alignment. Helps the robot face the tag head-on. */
+	var yawGain = 0.01
 
-  /**
-   * Calculate steering correction to align with a target AprilTag.
-   *
-   * Uses proportional control based on bearing (horizontal offset) and yaw (rotation offset) to
-   * generate a steering value.
-   *
-   * @param tagId The AprilTag ID to align with.
-   * @return AlignmentResult with steer value, or null if the tag is not visible.
-   */
-  fun alignToTag(tagId: Int): AlignmentResult? {
-    val tag = getTag(tagId) ?: return null
-    val pose = tag.ftcPose ?: return null
+	/**
+	 * Calculate steering correction to align with a target AprilTag.
+	 *
+	 * Uses proportional control based on bearing (horizontal offset) and yaw (rotation offset) to
+	 * generate a steering value.
+	 *
+	 * @param tagId The AprilTag ID to align with.
+	 * @return AlignmentResult with steer value, or null if the tag is not visible.
+	 */
+	fun alignToTag(tagId: Int): AlignmentResult? {
+		val tag = getTag(tagId) ?: return null
+		val pose = tag.ftcPose ?: return null
 
-    val steer = (pose.bearing * bearingGain) + (pose.yaw * yawGain)
+		val steer = (pose.bearing * bearingGain) + (pose.yaw * yawGain)
 
-    return AlignmentResult(
-            steer = steer.coerceIn(-1.0, 1.0),
-            range = pose.range,
-            bearing = pose.bearing,
-            yaw = pose.yaw
-    )
-  }
+		return AlignmentResult(
+			steer = steer.coerceIn(-1.0, 1.0),
+			range = pose.range,
+			bearing = pose.bearing,
+			yaw = pose.yaw
+		)
+	}
 
-  /**
-   * Calculate drive power to approach a tag at a desired range.
-   *
-   * @param tagId The AprilTag ID to approach.
-   * @param desiredRange Target distance from the tag in inches.
-   * @param rangeGain Proportional gain for range correction.
-   * @return Drive power (-1..1), or null if the tag is not visible.
-   */
-  fun approachTag(tagId: Int, desiredRange: Double, rangeGain: Double = 0.03): Double? {
-    val tag = getTag(tagId) ?: return null
-    val pose = tag.ftcPose ?: return null
+	/**
+	 * Calculate drive power to approach a tag at a desired range.
+	 *
+	 * @param tagId The AprilTag ID to approach.
+	 * @param desiredRange Target distance from the tag in inches.
+	 * @param rangeGain Proportional gain for range correction.
+	 * @return Drive power (-1..1), or null if the tag is not visible.
+	 */
+	fun approachTag(tagId: Int, desiredRange: Double, rangeGain: Double = 0.03): Double? {
+		val tag = getTag(tagId) ?: return null
+		val pose = tag.ftcPose ?: return null
 
-    val rangeError = pose.range - desiredRange
-    return (rangeError * rangeGain).coerceIn(-1.0, 1.0)
-  }
+		val rangeError = pose.range - desiredRange
+		return (rangeError * rangeGain).coerceIn(-1.0, 1.0)
+	}
 
-  // ── Cleanup ──
+	// ── Cleanup ──
 
-  /** Close the VisionPortal and stop streaming. Call in OpMode stop(). */
-  fun close() {
-    if (streaming) stopStreaming()
-    visionPortal.close()
-  }
+	/** Close the VisionPortal and stop streaming. Call in OpMode stop(). */
+	fun close() {
+		if (streaming) stopStreaming()
+		visionPortal.close()
+	}
 
-  // ── Frame Processor (inner class) ──
+	// ── Frame Processor (inner class) ──
 
-  /** Captures camera frames for streaming to Panels dashboard. */
-  private class FrameProcessor : VisionProcessor, CameraStreamSource {
-    private val lastFrame = AtomicReference(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565))
+	/** Captures camera frames for streaming to Panels dashboard. */
+	private class FrameProcessor : VisionProcessor, CameraStreamSource {
+		private val lastFrame = AtomicReference(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565))
 
-    override fun init(width: Int, height: Int, calibration: CameraCalibration?) {
-      lastFrame.set(Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565))
-    }
+		override fun init(width: Int, height: Int, calibration: CameraCalibration?) {
+			lastFrame.set(Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565))
+		}
 
-    override fun processFrame(frame: Mat, captureTimeNanos: Long): Any? {
-      val b = Bitmap.createBitmap(frame.width(), frame.height(), Bitmap.Config.RGB_565)
-      Utils.matToBitmap(frame, b)
-      lastFrame.set(b)
-      return null
-    }
+		override fun processFrame(frame: Mat, captureTimeNanos: Long): Any? {
+			val b = Bitmap.createBitmap(frame.width(), frame.height(), Bitmap.Config.RGB_565)
+			Utils.matToBitmap(frame, b)
+			lastFrame.set(b)
+			return null
+		}
 
-    override fun onDrawFrame(
-            canvas: Canvas,
-            onscreenWidth: Int,
-            onscreenHeight: Int,
-            scaleBmpPxToCanvasPx: Float,
-            scaleCanvasDensity: Float,
-            userContext: Any?
-    ) {}
+		override fun onDrawFrame(
+			canvas: Canvas,
+			onscreenWidth: Int,
+			onscreenHeight: Int,
+			scaleBmpPxToCanvasPx: Float,
+			scaleCanvasDensity: Float,
+			userContext: Any?
+		) {
+		}
 
-    override fun getFrameBitmap(continuation: Continuation<out Consumer<Bitmap>>) {
-      continuation.dispatch { it.accept(lastFrame.get()) }
-    }
-  }
+		override fun getFrameBitmap(continuation: Continuation<out Consumer<Bitmap>>) {
+			continuation.dispatch { it.accept(lastFrame.get()) }
+		}
+	}
 }

@@ -1,0 +1,20 @@
+// File: print-classpath.gradle
+allprojects {
+    task printClasspath {
+        doLast {
+            File srcMain = file("src/main")
+            if (srcMain.exists()) {
+                println "PROJECT_DIR|${project.name}|${project.projectDir.absolutePath}"
+            }
+            configurations.findAll { it.canBeResolved }.each { config ->
+                try {
+                    config.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+                        println "LIB|${project.name}|${config.name}|${artifact.file.absolutePath}"
+                    }
+                } catch (Exception e) {
+                    // skip unresolvable configs
+                }
+            }
+        }
+    }
+}

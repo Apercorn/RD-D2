@@ -37,8 +37,8 @@ class Intake(private val motor: DcMotorEx, private val feeder: Servo) {
      */
     const val FEEDER_RESET_DELAY = 500L
 
-    const val FEEDER_SWEEP_START = 0.2
-    const val FEEDER_SWEEP_END = 0.8
+    const val FEEDER_SWEEP_END = 0.7
+    const val FEEDER_SWEEP_START = 0.1
   }
 
   /** Whether the intake is currently running. */
@@ -107,11 +107,11 @@ class Intake(private val motor: DcMotorEx, private val feeder: Servo) {
     if (feederBusy) return
 
     feederBusy = true
-    feeder.position = FEEDER_SWEEP_START
+    feeder.position = FEEDER_SWEEP_END
 
     scope.launch {
       delay(FEEDER_RESET_DELAY)
-      feeder.position = FEEDER_SWEEP_END
+      feeder.position = FEEDER_SWEEP_START
       feederBusy = false
     }
   }
