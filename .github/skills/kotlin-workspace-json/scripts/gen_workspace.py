@@ -15,9 +15,38 @@ from pathlib import Path
 PROJECT_ROOT = Path(".").resolve()
 USER_HOME = Path.home()
 GRADLE_CACHE = USER_HOME / ".gradle" / "caches"
-ANDROID_SDK = USER_HOME / "AppData" / "Local" / "Android" / "Sdk"
+
+
+def _find_android_sdk():
+    """Locate Android SDK across Linux, WSL, and Windows environments."""
+    import os
+
+    # 1. Respect explicit env var
+    env = os.environ.get("ANDROID_HOME") or os.environ.get("ANDROID_SDK_ROOT")
+    if env:
+        return Path(env)
+    # 2. Linux / native WSL default
+    linux_default = USER_HOME / "Android" / "Sdk"
+    if linux_default.exists():
+        return linux_default
+    # 3. WSL: Windows-side SDK via /mnt/c
+    wsl_windows = (
+        Path("/mnt/c/Users") / USER_HOME.name / "AppData" / "Local" / "Android" / "Sdk"
+    )
+    if wsl_windows.exists():
+        return wsl_windows
+    # 4. Windows fallback (native Windows Python)
+    win_default = USER_HOME / "AppData" / "Local" / "Android" / "Sdk"
+    if win_default.exists():
+        return win_default
+    # Return the Linux default path even if absent (gen_workspace will warn about missing android.jar)
+    return linux_default
+
+
+ANDROID_SDK = _find_android_sdk()
 KOTLIN_VERSION = "2.2"
 JVM_TARGET = "1.8"
+
 
 def find_highest_android_api():
     platforms = ANDROID_SDK / "platforms"
@@ -32,7 +61,9 @@ def find_highest_android_api():
                 pass
     return max(apis) if apis else 30
 
+
 ANDROID_API = find_highest_android_api()
+
 
 # ── Parse classpath.txt ───────────────────────────────────────
 def parse_classpath(classpath_file="classpath.txt"):
@@ -45,7 +76,7 @@ def parse_classpath(classpath_file="classpath.txt"):
             if "|" not in line:
                 continue
             parts = line.split("|")
-            
+
             if parts[0] == "PROJECT_DIR" and len(parts) >= 3:
                 name = parts[1]
                 abs_path = parts[2]
@@ -55,7 +86,7 @@ def parse_classpath(classpath_file="classpath.txt"):
                 except ValueError:
                     projects[name] = ""
                 continue
-                
+
             if parts[0] == "LIB" and len(parts) >= 4:
                 project, config, path = parts[1], parts[2], parts[3]
                 # Only care about compile/runtime configs
@@ -76,18 +107,41 @@ def parse_classpath(classpath_file="classpath.txt"):
 
 
 def find_aar_classes_jar(aar_path):
-    """Find the extracted classes.jar in Gradle's transform cache for an AAR."""
+    """Find or extract classes.jar from an AAR in Gradle's transform/cache."""
+    import zipfile, tempfile, shutil
+
     artifact_name = Path(aar_path).stem
-    # Gradle 8.x stores transforms in caches/<version>/transforms/
+
+    # 1. Check Gradle 8.x transforms cache first (populated after a compile run)
     for version_dir in GRADLE_CACHE.iterdir():
         transforms_dir = version_dir / "transforms"
         if not transforms_dir.exists():
             continue
         for hash_dir in transforms_dir.iterdir():
-            candidate = hash_dir / "transformed" / artifact_name / "jars" / "classes.jar"
+            candidate = (
+                hash_dir / "transformed" / artifact_name / "jars" / "classes.jar"
+            )
             if candidate.exists():
                 return str(candidate).replace("\\", "/")
-    return None
+
+    # 2. Fallback: extract classes.jar from the .aar in-place into our own cache dir
+    extract_root = GRADLE_CACHE / "aar-extracted"
+    dest = extract_root / artifact_name / "classes.jar"
+    if dest.exists():
+        return str(dest).replace("\\", "/")
+    aar = Path(aar_path)
+    if not aar.exists():
+        return None
+    try:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with zipfile.ZipFile(aar, "r") as z:
+            if "classes.jar" not in z.namelist():
+                return None
+            z.extract("classes.jar", dest.parent)
+        return str(dest).replace("\\", "/")
+    except Exception as e:
+        print(f"WARNING: Failed to extract classes.jar from {aar}: {e}")
+        return None
 
 
 # ── Build workspace.json structure ────────────────────────────
@@ -96,7 +150,7 @@ def make_library(name, jar_path):
         "name": name,
         "type": "repository",
         "roots": [{"type": "CLASSES", "path": jar_path}],
-        "excludedRoots": []
+        "excludedRoots": [],
     }
 
 
@@ -106,19 +160,21 @@ def make_android_platform_library():
         "name": "android-platform",
         "type": None,
         "roots": [{"type": "CLASSES", "path": str(jar).replace("\\", "/")}],
-        "excludedRoots": []
+        "excludedRoots": [],
     }
 
 
 def make_sdk():
-    jar_path = f"{ANDROID_SDK}/platforms/android-{ANDROID_API}/android.jar".replace("\\", "/")
+    jar_path = f"{ANDROID_SDK}/platforms/android-{ANDROID_API}/android.jar".replace(
+        "\\", "/"
+    )
     return {
-        "name": "Java SDK",          # Must match module dependency refs!
+        "name": "Java SDK",  # Must match module dependency refs!
         "type": "JavaSDK",
         "version": str(ANDROID_API),
         "homePath": str(ANDROID_SDK).replace("\\", "/"),
         "roots": [{"url": f"jar://{jar_path}!/", "type": "CLASSES"}],
-        "additionalData": ""
+        "additionalData": "",
     }
 
 
@@ -145,15 +201,35 @@ def make_kotlin_settings(module_name, project_path, is_main=True):
     # Only assign sourceRoots if the directories actually exist
     src = []
     if project_path:
-        java_path = PROJECT_ROOT / project_path / "src" / ("main" if is_main else "test") / "java"
-        kt_path = PROJECT_ROOT / project_path / "src" / ("main" if is_main else "test") / "kotlin"
-        if java_path.exists(): src.append(f"<WORKSPACE>/{project_path}/src/{'main' if is_main else 'test'}/java")
-        if kt_path.exists(): src.append(f"<WORKSPACE>/{project_path}/src/{'main' if is_main else 'test'}/kotlin")
+        java_path = (
+            PROJECT_ROOT
+            / project_path
+            / "src"
+            / ("main" if is_main else "test")
+            / "java"
+        )
+        kt_path = (
+            PROJECT_ROOT
+            / project_path
+            / "src"
+            / ("main" if is_main else "test")
+            / "kotlin"
+        )
+        if java_path.exists():
+            src.append(
+                f"<WORKSPACE>/{project_path}/src/{'main' if is_main else 'test'}/java"
+            )
+        if kt_path.exists():
+            src.append(
+                f"<WORKSPACE>/{project_path}/src/{'main' if is_main else 'test'}/kotlin"
+            )
     else:
         java_path = PROJECT_ROOT / "src" / ("main" if is_main else "test") / "java"
         kt_path = PROJECT_ROOT / "src" / ("main" if is_main else "test") / "kotlin"
-        if java_path.exists(): src.append(f"<WORKSPACE>/src/{'main' if is_main else 'test'}/java")
-        if kt_path.exists(): src.append(f"<WORKSPACE>/src/{'main' if is_main else 'test'}/kotlin")
+        if java_path.exists():
+            src.append(f"<WORKSPACE>/src/{'main' if is_main else 'test'}/java")
+        if kt_path.exists():
+            src.append(f"<WORKSPACE>/src/{'main' if is_main else 'test'}/kotlin")
 
     return {
         "name": "Kotlin",
@@ -163,7 +239,9 @@ def make_kotlin_settings(module_name, project_path, is_main=True):
         "useProjectSettings": True,
         "implementedModuleNames": [],
         "dependsOnModuleNames": [],
-        "additionalVisibleModuleNames": [module_name.replace(".test", ".main")] if ".test" in module_name else [],
+        "additionalVisibleModuleNames": (
+            [module_name.replace(".test", ".main")] if ".test" in module_name else []
+        ),
         "productionOutputPath": None,
         "testOutputPath": None,
         "sourceSetNames": ["main"] if is_main else [],
@@ -171,8 +249,12 @@ def make_kotlin_settings(module_name, project_path, is_main=True):
         "externalProjectId": module_name.split(".")[0],
         "isHmppEnabled": False,
         "pureKotlinSourceFolders": src,
-        "kind": "default",          # MUST be lowercase!
-        "compilerArguments": f'J{{"jvmTarget":"{JVM_TARGET}","apiVersion":"{KOTLIN_VERSION}","languageVersion":"{KOTLIN_VERSION}"}}' if is_main else None,
+        "kind": "default",  # MUST be lowercase!
+        "compilerArguments": (
+            f'J{{"jvmTarget":"{JVM_TARGET}","apiVersion":"{KOTLIN_VERSION}","languageVersion":"{KOTLIN_VERSION}"}}'
+            if is_main
+            else None
+        ),
         "additionalArguments": None,
         "scriptTemplates": None,
         "scriptTemplatesClasspath": None,
@@ -180,7 +262,7 @@ def make_kotlin_settings(module_name, project_path, is_main=True):
         "targetPlatform": f"JVM ({JVM_TARGET})",
         "externalSystemRunTasks": [],
         "version": 5,
-        "flushNeeded": False
+        "flushNeeded": False,
     }
 
 
@@ -209,40 +291,60 @@ def generate():
         # Discover source roots for main & test
         main_src = []
         if (PROJECT_ROOT / rel_path / "src" / "main" / "java").exists():
-            main_src.append({"path": f"{base_path}/src/main/java", "type": "java-source"})
+            main_src.append(
+                {"path": f"{base_path}/src/main/java", "type": "java-source"}
+            )
         if (PROJECT_ROOT / rel_path / "src" / "main" / "kotlin").exists():
-            main_src.append({"path": f"{base_path}/src/main/kotlin", "type": "java-source"})
-            
+            main_src.append(
+                {"path": f"{base_path}/src/main/kotlin", "type": "java-source"}
+            )
+
         test_src = []
         if (PROJECT_ROOT / rel_path / "src" / "test" / "java").exists():
             test_src.append({"path": f"{base_path}/src/test/java", "type": "java-test"})
         if (PROJECT_ROOT / rel_path / "src" / "test" / "kotlin").exists():
-            test_src.append({"path": f"{base_path}/src/test/kotlin", "type": "java-test"})
+            test_src.append(
+                {"path": f"{base_path}/src/test/kotlin", "type": "java-test"}
+            )
 
         other_projects = [p for p in all_project_names if p != project_name]
 
-        modules.append({
-            "name": main_mod_name,
-            "type": "JAVA_MODULE",
-            "dependencies": make_module_deps(lib_names, other_projects),
-            "contentRoots": [{
-                "path": base_path,
-                **({"sourceRoots": main_src} if main_src else {}),
-                "excludedUrls": [f"{base_path}/build"]
-            }]
-        })
-        modules.append({
-            "name": test_mod_name,
-            "type": "JAVA_MODULE",
-            "dependencies": make_module_deps(lib_names, other_projects, extra_module_deps=[main_mod_name]),
-            "contentRoots": [{
-                "path": base_path,
-                **({"sourceRoots": test_src} if test_src else {})
-            }]
-        })
+        modules.append(
+            {
+                "name": main_mod_name,
+                "type": "JAVA_MODULE",
+                "dependencies": make_module_deps(lib_names, other_projects),
+                "contentRoots": [
+                    {
+                        "path": base_path,
+                        **({"sourceRoots": main_src} if main_src else {}),
+                        "excludedUrls": [f"{base_path}/build"],
+                    }
+                ],
+            }
+        )
+        modules.append(
+            {
+                "name": test_mod_name,
+                "type": "JAVA_MODULE",
+                "dependencies": make_module_deps(
+                    lib_names, other_projects, extra_module_deps=[main_mod_name]
+                ),
+                "contentRoots": [
+                    {
+                        "path": base_path,
+                        **({"sourceRoots": test_src} if test_src else {}),
+                    }
+                ],
+            }
+        )
 
-        kotlin_settings.append(make_kotlin_settings(main_mod_name, rel_path, is_main=True))
-        kotlin_settings.append(make_kotlin_settings(test_mod_name, rel_path, is_main=False))
+        kotlin_settings.append(
+            make_kotlin_settings(main_mod_name, rel_path, is_main=True)
+        )
+        kotlin_settings.append(
+            make_kotlin_settings(test_mod_name, rel_path, is_main=False)
+        )
 
     workspace = {
         "modules": modules,

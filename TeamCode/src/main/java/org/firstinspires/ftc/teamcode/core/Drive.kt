@@ -5,29 +5,29 @@ import com.qualcomm.robotcore.hardware.DcMotorEx
 /**
  * Drive subsystem for tank drive control.
  *
- * Provides both raw power control and convenience methods for arcade-style driving with precision
- * mode.
- *
  * Usage:
  * ```
  * // Direct power
  * drive.setPower(0.5, 0.5)
  *
- * // Arcade-style (joystick input)
- * drive.arcadeDrive(forwardPower, turnPower)
+ * // Tank-drive (joystick input)
+ * drive.tankDrive(forwardPower, turnPower)
  *
- * // With precision mode
+ * // Precision mode
  * drive.precisionMode = true
- * drive.arcadeDrive(forward, turn) // Automatically scaled
+ * drive.tankDrive(forward, turn)
  * ```
  */
-class Drive(private val leftMotor: DcMotorEx, private val rightMotor: DcMotorEx) {
+class Drive(
+	private val leftMotor: DcMotorEx,
+	private val rightMotor: DcMotorEx
+) {
 
 	companion object {
-		const val PRECISION_MULTIPLIER = 0.3
+		const val PRECISION_MULTIPLIER = 0.35
 	}
 
-	/** When true, drive power is scaled by [precisionMultiplier]. */
+	/** Toggle precise driving for endgame or aiming. */
 	var precisionMode = false
 
 	/** Set raw power to both motors. */
@@ -37,14 +37,16 @@ class Drive(private val leftMotor: DcMotorEx, private val rightMotor: DcMotorEx)
 	}
 
 	/**
-	 * Arcade-style tank drive.
+	 * Tank differential drive.
 	 * @param drive Forward/backward power (-1 to 1). Positive = forward.
 	 * @param turn Left/right turning power (-1 to 1). Positive = turn right.
 	 */
-	fun arcadeDrive(drive: Double, turn: Double) {
+	fun tankDrive(drive: Double, turn: Double) {
 		val multiplier = if (precisionMode) PRECISION_MULTIPLIER else 1.0
+
 		val left = (drive + turn) * multiplier
 		val right = (drive - turn) * multiplier
+
 		setPower(left, right)
 	}
 

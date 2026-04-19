@@ -82,5 +82,6 @@ lint/tmp/
 
 .kotlin/
 .vscode/
+!.vscode/tasks.json
 
 workspace.json
