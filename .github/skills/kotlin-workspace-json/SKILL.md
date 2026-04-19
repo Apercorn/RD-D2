@@ -14,22 +14,63 @@ description: 'Generate or fix workspace.json for JetBrains Kotlin LSP on Gradle 
 
 ## Procedure
 
-1. Create a `classpath.txt` file by extracting the Gradle classpath using the bundled init script:
-   Run `.\gradlew.bat -I .github/skills/kotlin-workspace-json/scripts/print-classpath.gradle printClasspath > classpath.txt 2>&1`
+1. Create a `classpath.txt` file by extracting the Gradle classpath using the bundled init script.
+
+   **Linux / Mac:**
+
+   ```sh
+   ./gradlew -I .github/skills/kotlin-workspace-json/scripts/print-classpath.gradle printClasspath > classpath.txt 2>&1
+   ```
+
+   **Windows:**
+
+   ```powershell
+   .\gradlew.bat -I .github/skills/kotlin-workspace-json/scripts/print-classpath.gradle printClasspath > classpath.txt 2>&1
+   ```
+
 2. Run the bundled Python script to parse `classpath.txt` and generate `workspace.json` at the root of the workspace:
-   Run `python .github/skills/kotlin-workspace-json/scripts/gen_workspace.py`
+
+   ```sh
+   python .github/skills/kotlin-workspace-json/scripts/gen_workspace.py
+   ```
+
 3. Clean up by deleting the temporary `classpath.txt` file.
-4. Guide the user to clear the LSP cache. You can run these commands in the terminal for them:
+
+4. Restart the Kotlin LSP to pick up the new workspace.json.
+
+   **Linux / Mac:**
+
+   ```sh
+   pkill -f 'kotlin-language-server' || true
+   ```
+
+   **Windows (PowerShell):**
+
    ```powershell
    Get-WmiObject Win32_Process -Filter "Name='java.exe'" | Where-Object { $_.CommandLine -match 'jetbrains\.kotlin' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }
    ```
-   _Note: Finding and deleting the workspace cache folder in `%APPDATA%\Code\User\workspaceStorage` requires matching the specific workspace ID, so ask the user if they'd like help finding and clearing it, or they can do it manually._
+
+   Or use **Ctrl+Shift+P → "Kotlin: Restart Language Server"** in VS Code.
+
 5. The Kotlin LSP will auto-restart when a `.kt` file is opened.
+
+## Known Limitation: Android Application Modules
+
+AGP (`com.android.application`) marks `debugCompileClasspath` as not resolv­able when
+called from a Gradle init script context. This means libraries declared only in an
+application module's dependencies (e.g. via a private Maven repo) may not appear in
+`classpath.txt`.
+
+**`gen_workspace.py` automatically compensates** by scanning the Gradle transforms cache
+(`~/.gradle/caches/*/transforms`) for `*-api.jar` files after a successful build. These
+jars are produced by AGP from every AAR at compile time and contain the full public API
+surface — enough for LSP resolution. As long as the project has been built at least once,
+all AAR dependencies will be found regardless of whether they appear in `classpath.txt`.
+
+If you add a new dependency and the LSP still cannot resolve it, run `./gradlew assembleDebug`
+once to populate the transforms cache, then regenerate `workspace.json`.
 
 ## Resources
 
 - [print-classpath.gradle](./scripts/print-classpath.gradle): Gradle init script to export the resolution tree.
 - [gen_workspace.py](./scripts/gen_workspace.py): Python script to generate the JSON model.
-
-#181818
-#191a1b

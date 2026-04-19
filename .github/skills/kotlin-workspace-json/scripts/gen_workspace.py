@@ -144,6 +144,32 @@ def find_aar_classes_jar(aar_path):
         return None
 
 
+def scan_transforms_api_jars():
+    """
+    Scan the Gradle transforms cache for *-api.jar files.
+
+    AGP splits AARs into -api.jar and -runtime.jar in the transforms cache.
+    The -api.jar contains the public API surface and is sufficient for LSP
+    resolution. This is the only way to pick up libraries from
+    com.android.application modules whose debugCompileClasspath isn't exposed
+    to init scripts by AGP.
+
+    Returns {artifact_name: jar_path} for all discovered -api.jar files.
+    """
+    result = {}
+    for version_dir in GRADLE_CACHE.iterdir():
+        transforms_dir = version_dir / "transforms"
+        if not transforms_dir.exists():
+            continue
+        for hash_dir in transforms_dir.iterdir():
+            for jar in hash_dir.rglob("*-api.jar"):
+                # Strip the -api suffix to get a clean library name
+                name = jar.stem[: -len("-api")]
+                if name not in result:
+                    result[name] = str(jar).replace("\\", "/")
+    return result
+
+
 # ── Build workspace.json structure ────────────────────────────
 def make_library(name, jar_path):
     return {
@@ -268,6 +294,15 @@ def make_kotlin_settings(module_name, project_path, is_main=True):
 
 def generate():
     libs, projects = parse_classpath()
+
+    # Supplement with any *-api.jar files from the Gradle transforms cache.
+    # This catches AARs from com.android.application modules that AGP doesn't
+    # expose through standard configuration resolution in init scripts.
+    transforms_libs = scan_transforms_api_jars()
+    for name, path in transforms_libs.items():
+        if name not in libs:
+            libs[name] = path
+
     lib_names = sorted(libs.keys())
     all_project_names = [p for p in projects.keys()]
 

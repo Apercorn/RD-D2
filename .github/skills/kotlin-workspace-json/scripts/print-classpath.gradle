@@ -6,13 +6,38 @@ allprojects {
             if (srcMain.exists()) {
                 println "PROJECT_DIR|${project.name}|${project.projectDir.absolutePath}"
             }
+
+            // Collect via canBeResolved (works for library modules)
+            def seen = [] as Set
             configurations.findAll { it.canBeResolved }.each { config ->
                 try {
                     config.resolvedConfiguration.resolvedArtifacts.each { artifact ->
-                        println "LIB|${project.name}|${config.name}|${artifact.file.absolutePath}"
+                        def key = "${project.name}|${config.name}|${artifact.file.absolutePath}"
+                        if (seen.add(key)) {
+                            println "LIB|${project.name}|${config.name}|${artifact.file.absolutePath}"
+                        }
                     }
                 } catch (Exception e) {
                     // skip unresolvable configs
+                }
+            }
+
+            // Fallback: explicitly resolve compile/runtime configs by name.
+            // Needed for com.android.application modules where AGP marks configs
+            // as not-resolvable from an init script context.
+            ["debugCompileClasspath", "releaseCompileClasspath",
+             "debugRuntimeClasspath",  "releaseRuntimeClasspath"].each { configName ->
+                def config = configurations.findByName(configName)
+                if (config == null) return
+                try {
+                    config.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+                        def key = "${project.name}|${configName}|${artifact.file.absolutePath}"
+                        if (seen.add(key)) {
+                            println "LIB|${project.name}|${configName}|${artifact.file.absolutePath}"
+                        }
+                    }
+                } catch (Exception e) {
+                    // skip if still unresolvable
                 }
             }
         }
