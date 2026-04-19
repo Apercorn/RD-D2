@@ -53,23 +53,23 @@ class CompetitionTeleOp : OpMode() {
 	}
 
 	fun handleFlywheel() {
-		// A: Toggle flywheel on and off and Close the servo gates
-		// X: Accelerate flywheel to target power (long shot or short shot); then open the servo gates
-		// Y: Go back to windmill power (0.3 power); close the servo gates
+		// A: Toggle windmill on/off; close the gate
+		// X: Fire — waits for target RPM, opens gate, closes after timeout
+		// Y: Set to windmill RPM; close the gate
 
-		// Dpad Up: Set flywheel to long shot power
-		// Dpad Down: Set flywheel to short shot power
-		// Dpad Right: Increase flywheel power
-		// Dpad Left: Decrease flywheel power
+		// Dpad Up: Longshot RPM
+		// Dpad Down: Shortshot RPM
+		// Dpad Right: Increase target RPM
+		// Dpad Left: Decrease target RPM
 
 		if (gamepad1.dpadUpWasPressed()) {
 			robot.shooter.longshot()
 		} else if (gamepad1.dpadDownWasPressed()) {
 			robot.shooter.shortshot()
 		} else if (gamepad1.dpadRightWasPressed()) {
-			robot.shooter.increasePower()
+			robot.shooter.increaseRpm()
 		} else if (gamepad1.dpadLeftWasPressed()) {
-			robot.shooter.decreasePower()
+			robot.shooter.decreaseRpm()
 		}
 
 		if (gamepad1.aWasPressed()) {
@@ -78,11 +78,7 @@ class CompetitionTeleOp : OpMode() {
 
 		} else if (gamepad1.xWasPressed()) {
 			robot.shooter.shoot(coroutineScope) {
-				// Push artifact into flywheel when gate opens
 				robot.intake.start(coroutineScope)
-
-				delay(5000.milliseconds)
-				robot.shooter.closeGate()
 			}
 		} else if (gamepad1.yWasPressed()) {
 			robot.shooter.windmill()
@@ -122,9 +118,9 @@ class CompetitionTeleOp : OpMode() {
 		tm.addLine()
 		tm.addLine("── FLYWHEEL ──")
 		tm.addData("Flywheel Active", if (robot.shooter.flywheelActive) "YES" else "NO")
-		tm.addData("Flywheel Velocity", "${robot.shooter.flywheelVelocity.toInt()} ticks/s")
-		tm.addData("Target Power", "${(robot.shooter.targetPower * 100).toInt()}%%")
-		tm.addData("Actual Power", "${(robot.shooter.flywheelPower * 100).toInt()}%%")
+		tm.addData("Encoder ticks/sec", robot.shooter.flywheelVelocity.toInt())
+		tm.addData("Target RPM", robot.shooter.targetRpm.toInt())
+		tm.addData("Actual RPM", robot.shooter.flywheelRpm.toInt())
 
 		tm.addLine()
 		tm.addLine("── GATE ──")

@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.Servo
-import com.qualcomm.robotcore.hardware.VoltageSensor
 
 /**
  * Central robot hardware container.
@@ -23,52 +22,50 @@ import com.qualcomm.robotcore.hardware.VoltageSensor
  */
 class Robot(hardwareMap: HardwareMap) {
 
-  // ── Raw Hardware ──
-  val leftDrive: DcMotorEx = hardwareMap.get(DcMotorEx::class.java, "left_drive")
-  val rightDrive: DcMotorEx = hardwareMap.get(DcMotorEx::class.java, "right_drive")
-  val intakeMotor: DcMotorEx = hardwareMap.get(DcMotorEx::class.java, "intake")
-  val flywheelMotor: DcMotorEx = hardwareMap.get(DcMotorEx::class.java, "outtake")
-  val gateLeft: Servo = hardwareMap.get(Servo::class.java, "gate_left")
-  val gateRight: Servo = hardwareMap.get(Servo::class.java, "gate_right")
+	// ── Raw Hardware ──
+	val leftDrive: DcMotorEx = hardwareMap.get(DcMotorEx::class.java, "left_drive")
+	val rightDrive: DcMotorEx = hardwareMap.get(DcMotorEx::class.java, "right_drive")
+	val intakeMotor: DcMotorEx = hardwareMap.get(DcMotorEx::class.java, "intake")
+	val flywheelMotor: DcMotorEx = hardwareMap.get(DcMotorEx::class.java, "outtake")
+	val gateLeft: Servo = hardwareMap.get(Servo::class.java, "gate_left")
+	val gateRight: Servo = hardwareMap.get(Servo::class.java, "gate_right")
 	val feeder: Servo = hardwareMap.get(Servo::class.java, "flywheel_feeder")
-	val voltage: VoltageSensor = hardwareMap.get(VoltageSensor::class.java, "Control Hub")
 
-  // ── Subsystems ──
-  val drive = Drive(leftDrive, rightDrive)
-  val intake = Intake(intakeMotor, feeder)
-  val shooter = Shooter(flywheelMotor, gateLeft, gateRight, voltage)
+	// ── Subsystems ──
+	val drive = Drive(leftDrive, rightDrive)
+	val intake = Intake(intakeMotor, feeder)
+	val shooter = Shooter(flywheelMotor, gateLeft, gateRight)
 	val vision = Vision(hardwareMap)
-	
-  init {
-    // Drive motors
-    leftDrive.direction = DcMotorSimple.Direction.REVERSE
-    rightDrive.direction = DcMotorSimple.Direction.FORWARD
 
-    leftDrive.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-    rightDrive.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-    leftDrive.mode = DcMotor.RunMode.RUN_USING_ENCODER
-    rightDrive.mode = DcMotor.RunMode.RUN_USING_ENCODER
+	init {
+		// Drive motors
+		leftDrive.direction = DcMotorSimple.Direction.REVERSE
+		rightDrive.direction = DcMotorSimple.Direction.FORWARD
 
-    leftDrive.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-    rightDrive.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+		leftDrive.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+		rightDrive.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+		leftDrive.mode = DcMotor.RunMode.RUN_USING_ENCODER
+		rightDrive.mode = DcMotor.RunMode.RUN_USING_ENCODER
 
-    // Flywheel
-    flywheelMotor.direction = DcMotorSimple.Direction.REVERSE
-    flywheelMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-    flywheelMotor.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+		leftDrive.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+		rightDrive.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
 
-    // Intake
-    intakeMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
-    intakeMotor.mode = DcMotor.RunMode.RUN_USING_ENCODER
+		// Flywheel
+		flywheelMotor.direction = DcMotorSimple.Direction.REVERSE
+		flywheelMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
 
-    shooter.closeGate()
+		// Intake
+		intakeMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+		intakeMotor.mode = DcMotor.RunMode.RUN_USING_ENCODER
+
+		shooter.closeGate()
 		intake.resetFeeder()
-  }
+	}
 
-  /** Stop all motors */
-  fun stopAll() {
-    drive.stop()
-    intake.stop()
-    shooter.stop()
-  }
+	/** Stop all motors */
+	fun stopAll() {
+		drive.stop()
+		intake.stop()
+		shooter.stop()
+	}
 }
