@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import kotlinx.coroutines.*
 import org.firstinspires.ftc.teamcode.core.Robot
+import kotlin.time.Duration.Companion.milliseconds
 
 @Configurable
 @TeleOp(name = "Competition TeleOp", group = "Competition")
@@ -32,18 +33,18 @@ class CompetitionTeleOp : OpMode() {
 			robot.drive.precisionMode = !robot.drive.precisionMode
 		}
 
-		robot.drive.arcadeDrive(drive, turn)
+		robot.drive.tankDrive(drive, turn)
 	}
 
 	fun handleIntake() {
 		// Feed the artifact
 		if (gamepad1.rightTriggerWasPressed()) {
-			robot.intake.toggle(DcMotorSimple.Direction.FORWARD)
+			robot.intake.toggle(DcMotorSimple.Direction.FORWARD, coroutineScope)
 		}
 
 		//// Reverse feed the artifact
 		if (gamepad1.leftTriggerWasPressed()) {
-			robot.intake.toggle(DcMotorSimple.Direction.REVERSE)
+			robot.intake.toggle(DcMotorSimple.Direction.REVERSE, coroutineScope)
 		}
 
 		if (gamepad1.rightBumperWasPressed()) {
@@ -73,14 +74,19 @@ class CompetitionTeleOp : OpMode() {
 
 		if (gamepad1.aWasPressed()) {
 			robot.shooter.toggleWindmill()
+			robot.intake.stop()
+
 		} else if (gamepad1.xWasPressed()) {
 			robot.shooter.shoot(coroutineScope) {
 				// Push artifact into flywheel when gate opens
-				robot.intake.start()
-				robot.intake.feed(coroutineScope)
+				robot.intake.start(coroutineScope)
+
+				delay(5000.milliseconds)
+				robot.shooter.closeGate()
 			}
 		} else if (gamepad1.yWasPressed()) {
 			robot.shooter.windmill()
+			robot.intake.stop()
 		}
 	}
 

@@ -2,14 +2,12 @@ package org.firstinspires.ftc.teamcode.core
 
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.Servo
-import kotlin.math.abs
+import com.qualcomm.robotcore.hardware.VoltageSensor
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.*
 
 /**
- * Shooter subsystem: flywheel motor, gate servos, and color sensor.
- *
- * Handles flywheel power presets, gate open/close logic, color-based artifact detection, and a
- * coroutine-driven delayed gate opening that waits for the flywheel to spin up before releasing.
+ * Shooter subsystem that manages the flywheel motor and gate servos.
  *
  * Usage:
  * ```
@@ -24,13 +22,27 @@ class Shooter(
 	private val flywheel: DcMotorEx,
 	private val gateLeft: Servo,
 	private val gateRight: Servo,
+	private val voltageSensor: VoltageSensor
 ) {
 	companion object {
+		const val VOLTAGE_CONST = 12.7
+
 		// ── Flywheel Power Presets ──
 		const val LONGSHOT_PWR = 1.0
-		const val SHORTSHOT_PWR = 0.8
+		const val SHORTSHOT_PWR = 0.7
 		const val WINDMILL_POWER = 0.3
 		const val POWER_STEP = 0.05
+
+		/** The time taken for the motor to get up to high RPM */
+		const val SPINUP_DURATION = 4000L
+		/** How long after shoot() until the gate is closed again */
+		const val SHOOT_TIMEOUT = 5000L
+
+		// ── RPM Targets ──
+		const val TICKS_PER_REV = 28.0
+		const val SHORTSHOT_RPM = 1720.0
+		const val LONGSHOT_RPM = 2200.0
+		const val RPM_TOLERANCE = 50.0
 
 		// ── Gate Servo Positions ──
 		const val GATE_LEFT_OPEN_POS = 1.0
@@ -46,6 +58,17 @@ class Shooter(
 
 	/** Current target power for the flywheel. */
 	var targetPower = LONGSHOT_PWR
+
+	/** Target RPM for the current shot mode. Used by shoot() to know when the motor is ready. */
+	var targetRpm = LONGSHOT_RPM
+		private set
+
+	/** System.currentTimeMillis() at which the spinup window expires. -1 = not started. */
+	private var spinupReadyAt = -1L
+
+	/** Whether enough time has elapsed since the shot mode was selected. */
+	val spinupReady: Boolean
+		get() = spinupReadyAt >= 0 && System.currentTimeMillis() >= spinupReadyAt
 
 	/** Whether the gate is currently open. */
 	var gateOpened = false
@@ -91,13 +114,20 @@ class Shooter(
 	fun longshot() {
 		flywheelActive = true
 		targetPower = LONGSHOT_PWR
+		targetRpm = LONGSHOT_RPM
+		spinupReadyAt = System.currentTimeMillis() + SPINUP_DURATION
 		applyFlywheel()
 	}
 
 	/** Set target to shortshot preset. */
 	fun shortshot() {
 		flywheelActive = true
-		targetPower = SHORTSHOT_PWR
+		targetRpm = SHORTSHOT_RPM
+		spinupReadyAt = System.currentTimeMillis() + SPINUP_DURATION
+
+		val target = (SHORTSHOT_PWR * VOLTAGE_CONST) / voltageSensor.voltage
+		targetPower = target.coerceIn(0.0, 1.0)
+
 		applyFlywheel()
 	}
 
@@ -108,28 +138,31 @@ class Shooter(
 	 * @param scope CoroutineScope to launch the delayed gate opening in.
 	 * @param onGateOpen Optional callback when the gate opens (e.g., to push intake).
 	 */
-	fun shoot(scope: CoroutineScope, onGateOpen: (() -> Unit)? = null) {
+	fun shoot(scope: CoroutineScope, onGateOpen: (suspend () -> Unit)? = null) {
 		flywheelActive = true
 		applyFlywheel()
 
 		if (targetPower <= WINDMILL_POWER) return;
 
 		scope.launch {
-			val targetRpm = targetPower * 1500.0
-			val rpmDiff = targetRpm - flywheelVelocity
+			// Wait for spinup timer
+			val spinupWait = spinupReadyAt - System.currentTimeMillis()
+			if (spinupWait > 0) delay(spinupWait.milliseconds)
 
-			
-
-			// Wait proportional to how far the flywheel needs to spin up
-			val waitTimeMs = (rpmDiff * 20).toLong().coerceAtLeast(0)
-			delay(waitTimeMs)
+			// Then wait for actual RPM to reach threshold
+			val thresholdTicksPerSec = (targetRpm - RPM_TOLERANCE) * TICKS_PER_REV / 60.0
+			val deadline = System.currentTimeMillis() + SHOOT_TIMEOUT
+			while (flywheelVelocity < thresholdTicksPerSec) {
+				if (System.currentTimeMillis() > deadline) break
+				delay(50.milliseconds)
+			}
 
 			openGate()
 			onGateOpen?.invoke()
 
-			//delay(2000)
-
-			//windmill()
+			// Auto-close gate after shot
+			delay(SHOOT_TIMEOUT.milliseconds)
+			closeGate()
 		}
 	}
 
@@ -145,6 +178,7 @@ class Shooter(
 		closeGate()
 	}
 
+	/** Apply current state to the motor. */
 	private fun applyFlywheel() {
 		flywheel.power = if (flywheelActive) targetPower else 0.0
 	}
@@ -169,7 +203,6 @@ class Shooter(
 	fun toggleGate() {
 		if (gateOpened) closeGate() else openGate()
 	}
-
 
 	/** Current flywheel velocity (ticks/sec from encoder). */
 	val flywheelVelocity: Double

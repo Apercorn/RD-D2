@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.Servo
+import com.qualcomm.robotcore.hardware.VoltageSensor
 
 /**
  * Central robot hardware container.
@@ -30,11 +31,12 @@ class Robot(hardwareMap: HardwareMap) {
   val gateLeft: Servo = hardwareMap.get(Servo::class.java, "gate_left")
   val gateRight: Servo = hardwareMap.get(Servo::class.java, "gate_right")
 	val feeder: Servo = hardwareMap.get(Servo::class.java, "flywheel_feeder")
+	val voltage: VoltageSensor = hardwareMap.get(VoltageSensor::class.java, "Control Hub")
 
   // ── Subsystems ──
   val drive = Drive(leftDrive, rightDrive)
   val intake = Intake(intakeMotor, feeder)
-  val shooter = Shooter(flywheelMotor, gateLeft, gateRight)
+  val shooter = Shooter(flywheelMotor, gateLeft, gateRight, voltage)
 	val vision = Vision(hardwareMap)
 	
   init {
