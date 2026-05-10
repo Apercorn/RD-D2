@@ -40,7 +40,7 @@ class Shooter(
 
 		// ── PIDF (velocity mode) ──
 		// F formula: 32767 / (LONGSHOT_RPM * TICKS_PER_REV / 60) ≈ 32.0
-		const val PIDF_F = 32.0
+		const val PIDF_F = 15.6
 		const val PIDF_P = 10.0
 		const val PIDF_I = 0.0
 		const val PIDF_D = 0.0

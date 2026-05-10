@@ -52,8 +52,6 @@ description: 'Generate or fix workspace.json for JetBrains Kotlin LSP on Gradle 
 
    Or use **Ctrl+Shift+P → "Kotlin: Restart Language Server"** in VS Code.
 
-5. The Kotlin LSP will auto-restart when a `.kt` file is opened.
-
 ## Known Limitation: Android Application Modules
 
 AGP (`com.android.application`) marks `debugCompileClasspath` as not resolv­able when
